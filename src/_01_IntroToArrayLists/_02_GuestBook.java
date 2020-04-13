@@ -47,8 +47,9 @@ public class _02_GuestBook implements ActionListener{
 			String book="";
 			for(int i=0; i<names.size(); i++) {
 				//System.out.println(i);
-				book+=("Guest #" + i+1 + ":");
+				book+=("Guest #" + (i+1) + ": ");
 				book+=(names.get(i));
+				book+="\n";
 			}
 			JOptionPane.showMessageDialog(null, book);
 		}
