@@ -34,12 +34,16 @@ void startGame() {
 }
 
 void restart() {
+	//System.out.println("re");
 	playWord=Names.pop();
 	a=playWord.toCharArray();
 	underScore="";
+	System.out.println(playWord);
 	for(int i=0; i<a.length; i++) {
 		underScore+="__ ";
 	}
+	label.setText(underScore);
+	lives=6;
 	}//
 
 
@@ -56,26 +60,35 @@ void GUI() {
 
 @Override
 public void keyPressed(KeyEvent e) {
+	//System.out.println(lives);
 	StringBuilder sb=new StringBuilder(underScore);
 	// TODO Auto-generated method stub
+	boolean charFound=false;
 	for(int i=0; i<a.length; i++) {
 		if(e.getKeyChar()==a[i]) {
+			charFound=true;
 			sb.replace(i*3, i*3+2, e.getKeyChar()+" ");
 		}
-		else {
-			lives-=1;
-		}
 	}
+	if(!charFound) {
+		lives-=1;
+	}
+	if(lives==0) {
+		 JOptionPane.showMessageDialog(null, "Game Over");
+		 String again=JOptionPane.showInputDialog("Would you like to play again?");
+		 if(again.equals("yes")) {
+			 //System.out.println("re");
+			 restart();
+		 }
+		 if(again.equals("no")) {
+			 System.exit(0);
+		 }
+	 }
 	underScore=sb.toString();
 	if(!underScore.contains("_")) {
-		label.setText("");
 		restart();
-		lives=6;
 	}
-	
 	label.setText(underScore);
-	
-	
 }
 
 @Override
