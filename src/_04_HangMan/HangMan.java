@@ -18,6 +18,7 @@ public class HangMan implements KeyListener{
 	JPanel panel=new JPanel();
 	JLabel label=new JLabel();
 	int lives=6;
+	StringBuilder sb=new StringBuilder();
 public static void main(String[] args) {
 	HangMan hm=new HangMan();
     hm.startGame();
@@ -30,20 +31,34 @@ void startGame() {
 	 for(int i=0; i<num; i++) {
 		  Names.push(Utilities.readRandomLineFromFile("dictionary.txt"));
 		  }
-	 restart();
+	 lives=6;
+	 playWord=Names.pop();
+	 for(int i=0; i<playWord.length(); i++) {
+			underScore+="__ ";
+		}
+	 label.setText(underScore);
+	 a=playWord.toCharArray();
+	 System.out.println(playWord);
 }
 
 void restart() {
 	//System.out.println("re");
-	playWord=Names.pop();
+	if(Names.isEmpty()==false) {
+		playWord=Names.pop();
+		sb=new StringBuilder(playWord.length());
+		//System.out.println(playWord + "playWord");
 	a=playWord.toCharArray();
 	underScore="";
-	System.out.println(playWord);
-	for(int i=0; i<a.length; i++) {
+	System.out.println(a);
+	for(int i=0; i<playWord.length(); i++) {
 		underScore+="__ ";
 	}
 	label.setText(underScore);
 	lives=6;
+	}
+	else {
+		JOptionPane.showMessageDialog(null, "There are no words in the list");
+	}
 	}//
 
 
@@ -55,19 +70,20 @@ void GUI() {
 	frame.addKeyListener(this);
 	panel.add(label);
 	frame.pack();
-	label.setText(underScore);
+	//label.setText(underScore);
 }
-
+//String text="";
 @Override
 public void keyPressed(KeyEvent e) {
 	//System.out.println(lives);
-	StringBuilder sb=new StringBuilder(underScore);
 	// TODO Auto-generated method stub
 	boolean charFound=false;
 	for(int i=0; i<a.length; i++) {
 		if(e.getKeyChar()==a[i]) {
 			charFound=true;
-			sb.replace(i*3, i*3+2, e.getKeyChar()+" ");
+			sb=sb.replace(i*3, i*3+2, e.getKeyChar()+" ");
+			underScore=sb.toString();
+			label.setText(underScore);
 		}
 	}
 	if(!charFound) {
@@ -78,17 +94,21 @@ public void keyPressed(KeyEvent e) {
 		 String again=JOptionPane.showInputDialog("Would you like to play again?");
 		 if(again.equals("yes")) {
 			 //System.out.println("re");
+			 //label.setText(underScore);
+			 System.out.println("Restart");
 			 restart();
 		 }
 		 if(again.equals("no")) {
 			 System.exit(0);
 		 }
 	 }
-	underScore=sb.toString();
+	//text=sb.toString();
 	if(!underScore.contains("_")) {
+		//not working
+		System.out.println("restart");
 		restart();
 	}
-	label.setText(underScore);
+	//label.setText(underScore);
 }
 
 @Override
