@@ -34,7 +34,7 @@ void startGame() {
 	 lives=6;
 	 playWord=Names.pop();
 	 for(int i=0; i<playWord.length(); i++) {
-			underScore+="_";
+			underScore+="__ " ;
 		}
 	 label.setText(underScore);
 	 //a=playWord.toCharArray();
@@ -65,17 +65,24 @@ void GUI() {
 public void keyPressed(KeyEvent e) {
 	//System.out.println(lives);
 	// TODO Auto-generated method stub
+	Boolean b=false;
 	char guess=e.getKeyChar();
 	for(int i=0; i<playWord.length(); i++) {
 		if(guess==playWord.charAt(i)) {
+			StringBuilder sb=new StringBuilder(underScore);
 			//charFound=true;
-			underScore=underScore.substring(0, i)+guess+underScore.substring(i+1);
+			//underScore=underScore.substring(0, i*3)+
+					//playWord.charAt(i)+" "+" "+guess+underScore.substring((i+1)*3);
 			//underScore=sb.toString();
+			sb=sb.replace(i*3, (i+1)*3, e.getKeyChar()+" "+" ");
+			underScore=sb.toString();
 			label.setText(underScore);
+			b=true;
 		}
-		else {insert
-			lives-=1;
-		}
+	}
+	if(b==false) {
+		//System.out.println("Hey!");
+		lives-=1;
 	}
 	if(lives==0) {
 		 JOptionPane.showMessageDialog(null, "Game Over");
@@ -102,6 +109,7 @@ public void keyReleased(KeyEvent e) {
 			underScore=underScore + "_";
 		}
 		label.setText(underScore);
+		 System.out.println(playWord);
 	}
 }
 
