@@ -28,5 +28,10 @@ public class _00_HashMapDemo {
 		}
 		
 		System.out.println(Math.sqrt(3));
+		
+		//to get key from value
+		for(Integer i : studentRoster.keySet()){
+			//i
+		}	
 	}
 }

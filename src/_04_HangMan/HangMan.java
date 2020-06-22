@@ -86,7 +86,24 @@ public void keyPressed(KeyEvent e) {
 	}
 	if(lives==0) {
 		 JOptionPane.showMessageDialog(null, "Game Over");
-		 System.exit(0);
+		 String re=JOptionPane.showInputDialog("Would you like to play again?");
+		 if(re.equals("yes")) {
+			 lives=6;
+				//System.out.println("restart");
+				playWord=Names.pop();
+				underScore="";
+				for(int i=0; i<playWord.length(); i++) {
+					underScore=underScore + "__ ";
+				}
+				label.setText(underScore);
+				 System.out.println(playWord);	 
+		 }
+		 else if(re.equals("no")) {
+			 System.exit(0);
+		 }
+		 else {
+			 System.out.println("null");
+		 }
 			 //System.out.println("re");
 			 //label.setText(underScore);
 			 //System.out.println("Restart");
@@ -99,14 +116,14 @@ public void keyPressed(KeyEvent e) {
 @Override
 public void keyReleased(KeyEvent e) {
 	// TODO Auto-generated method stub
-	if(label.getText().equals(playWord)) {
+	if(!label.getText().contains("_")) {
 		lives=6;
 		//not working
 		//System.out.println("restart");
 		playWord=Names.pop();
 		underScore="";
 		for(int i=0; i<playWord.length(); i++) {
-			underScore=underScore + "_";
+			underScore=underScore + "__ ";
 		}
 		label.setText(underScore);
 		 System.out.println(playWord);

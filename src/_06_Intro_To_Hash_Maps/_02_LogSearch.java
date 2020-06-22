@@ -1,7 +1,59 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class _02_LogSearch implements ActionListener{
+	HashMap<Integer, String> logs = new HashMap<Integer, String>();
+	JFrame frame=new JFrame();
+	JPanel panel=new JPanel();
+	JButton button=new JButton("Add");
+	JButton button1=new JButton("Search");
+	JButton button2=new JButton("View");
+	JButton button3=new JButton("Remove");
+	public static void main(String[] args) {
+		new _02_LogSearch().GUI();
+	}
+	void GUI() {
+		frame.setVisible(true);
+		frame.add(panel);
+		panel.add(button);
+		panel.add(button1);
+		panel.add(button2);
+		button.addActionListener(this);
+		button1.addActionListener(this);
+		button2.addActionListener(this);
+		button3.addActionListener(this);
+		frame.pack();
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==button) {
+			String I=JOptionPane.showInputDialog("Enter an ID number");
+			int ID=Integer.parseInt(I);
+			String name=JOptionPane.showInputDialog("Enter a name");
+			logs.put(ID, name);
+		}
+		if(e.getSource()==button1) {
+			String I1=JOptionPane.showInputDialog("Enter an ID number");
+			int ID1=Integer.parseInt(I1);
+			if(logs.containsValue(ID1)) {
+				for(Integer i : logs.keySet()){
+					JOptionPane.showMessageDialog(null, " The person with that ID is named " + i);
+				}	
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "That entry does not exist");
+			}
+		}
+	}
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -29,5 +81,6 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
+	
 	
 }
