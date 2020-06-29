@@ -3,6 +3,7 @@ package _06_Intro_To_Hash_Maps;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class _02_LogSearch implements ActionListener{
-	HashMap<Integer, String> logs = new HashMap<Integer, String>();
+	LinkedHashMap<Integer, String> logs = new LinkedHashMap<Integer, String>();
 	JFrame frame=new JFrame();
 	JPanel panel=new JPanel();
 	JButton button=new JButton("Add");
@@ -26,6 +27,7 @@ public class _02_LogSearch implements ActionListener{
 		panel.add(button);
 		panel.add(button1);
 		panel.add(button2);
+		panel.add(button3);
 		button.addActionListener(this);
 		button1.addActionListener(this);
 		button2.addActionListener(this);
@@ -44,13 +46,28 @@ public class _02_LogSearch implements ActionListener{
 		if(e.getSource()==button1) {
 			String I1=JOptionPane.showInputDialog("Enter an ID number");
 			int ID1=Integer.parseInt(I1);
-			if(logs.containsValue(ID1)) {
-				for(Integer i : logs.keySet()){
-					JOptionPane.showMessageDialog(null, " The person with that ID is named " + i);
-				}	
+			if(logs.containsKey(ID1)) {
+					JOptionPane.showMessageDialog(null, " The person with that ID is named " + logs.get(ID1));	
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "That entry does not exist");
+			}
+		}
+		if(e.getSource()==button2) {
+			String d="";
+			for(Integer i: logs.keySet()) {
+				d+=(" ID: " + i + " Name: " + logs.get(i) + "\r\n");
+			}
+			JOptionPane.showMessageDialog(null, d);
+		}
+		if(e.getSource()==button3) {
+			String ree=JOptionPane.showInputDialog("Enter the ID of the name that you want to remove");
+			int de=Integer.parseInt(ree);
+			if(logs.containsKey(de)) {
+				logs.remove(de, logs.get(de));
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "This ID is not in the list");
 			}
 		}
 	}
